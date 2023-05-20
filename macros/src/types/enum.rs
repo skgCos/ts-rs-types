@@ -50,7 +50,7 @@ pub(crate) fn r#enum_def(s: &ItemEnum) -> syn::Result<DerivedTS> {
     Ok(DerivedTS {
         inline: quote!(vec![#(#formatted_variants),*].join(" | ")),
         decl: quote!(format!("type {}{} = {};", #name, #generic_args, Self::inline())),
-        inline_flattened: None,
+        inline_flattened: Some(quote!(vec![#(#formatted_variants),*].join(" | "))),
         dependencies,
         name,
         export: enum_attr.export,
