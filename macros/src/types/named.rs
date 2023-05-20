@@ -35,17 +35,17 @@ pub(crate) fn named(
         )?;
     }
 
-    let fields = quote!(vec![#(#formatted_fields),*].join(" "));
+    let fields = quote!(vec![#(#formatted_fields),*].join(" & "));
     let generic_args = format_generics(&mut dependencies, generics);
 
     Ok(DerivedTS {
         inline: quote! {
             format!(
-                "{{ {} }}",
+                "{}",
                 #fields,
             )
         },
-        decl: quote!(format!("interface {}{} {}", #name, #generic_args, Self::inline())),
+        decl: quote!(format!("type {}{} = {}", #name, #generic_args, Self::inline())),
         inline_flattened: Some(fields),
         name: name.to_owned(),
         dependencies,
@@ -88,7 +88,9 @@ fn format_field(
             _ => {}
         }
 
-        formatted_fields.push(quote!(<#ty as ts_rs::TS>::inline_flattened()));
+        formatted_fields.push(quote!(
+            format!("({})", <#ty as ts_rs::TS>::inline_flattened().to_string())
+        ));
         dependencies.append_from(ty);
         return Ok(());
     }
@@ -110,7 +112,7 @@ fn format_field(
     let valid_name = raw_name_to_ts_field(name);
 
     formatted_fields.push(quote! {
-        format!("{}{}: {},", #valid_name, #optional_annotation, #formatted_ty)
+        format!("{{ {}{}: {} }}", #valid_name, #optional_annotation, #formatted_ty)
     });
 
     Ok(())
