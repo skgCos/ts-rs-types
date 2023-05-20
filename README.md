@@ -1,4 +1,34 @@
-# ts-rs
+# ts-rs-types
+
+## TLDR
+This is essentially the same as ts-rs but with the following differences
+- Generates types instead of interfaces
+- Supports flatten enums
+
+i.e.
+```rust
+#[derive(Serialize, Deserialize, TS)]
+struct A {
+    #[serde(flatten)]
+    a: E,
+    b: i32,
+}
+
+#[derive(Serialize, Deserialize, TS)]
+#[serde(tag = "t", content = "c")]
+enum B {
+    Something(String),
+    Something2(String),
+}
+```
+
+will generate
+
+```ts
+type A = ({ t: "Something", c: String } | { t: "Something2", c: String }) & {b: number};
+```
+
+---
 
 <h1 align="center" style="padding-top: 0; margin-top: 0;">
 <img width="150px" src="https://raw.githubusercontent.com/Aleph-Alpha/ts-rs/main/logo.png" alt="logo">
