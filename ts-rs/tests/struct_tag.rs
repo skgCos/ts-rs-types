@@ -15,7 +15,7 @@ struct TaggedType {
 fn test() {
     assert_eq!(
         TaggedType::inline(),
-        "{ type: \"TaggedType\", a: number, b: number, }"
+        "type: \"TaggedType\", & { a: number } & { b: number }"
     )
 }
 

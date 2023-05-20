@@ -40,7 +40,7 @@ fn named() {
     }
     assert_eq!(
         Struct::inline(),
-        "{ a: Array<string>, b: [Array<string>, Array<string>], c: Array<Array<string>>, }"
+        "{ a: Array<string> } & { b: [Array<string>, Array<string>] } & { c: Array<Array<string>> }"
     );
 }
 
@@ -52,7 +52,7 @@ fn named_nested() {
         b: (Vec<Vec<String>>, Vec<Vec<String>>),
         c: [Vec<Vec<String>>; 3],
     }
-    assert_eq!(Struct::inline(), "{ a: Array<Array<string>>, b: [Array<Array<string>>, Array<Array<string>>], c: Array<Array<Array<string>>>, }");
+    assert_eq!(Struct::inline(), "{ a: Array<Array<string>> } & { b: [Array<Array<string>>, Array<Array<string>>] } & { c: Array<Array<Array<string>>> }");
 }
 
 #[test]

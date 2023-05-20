@@ -28,6 +28,6 @@ struct C {
 fn test_nested() {
     assert_eq!(
         C::inline(),
-        "{ b1: B, b2: { a1: A, a2: { x1: number, y1: number, }, }, }"
+        "{ b1: B } & { b2: { a1: A } & { a2: { x1: number } & { y1: number } } }"
     );
 }

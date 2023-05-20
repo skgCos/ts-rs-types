@@ -11,7 +11,7 @@ fn rename_all() {
         b: i32,
     }
 
-    assert_eq!(Rename::inline(), "{ A: number, B: number, }");
+    assert_eq!(Rename::inline(), "{ A: number } & { B: number }");
 }
 
 #[cfg(feature = "serde-compat")]
@@ -23,5 +23,5 @@ fn serde_rename_special_char() {
         b: i32,
     }
 
-    assert_eq!(RenameSerdeSpecialChar::inline(), r#"{ "a/b": number, }"#);
+    assert_eq!(RenameSerdeSpecialChar::inline(), r#"{ "a/b": number }"#);
 }

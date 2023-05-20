@@ -24,7 +24,7 @@ fn simple() {
 
     assert_eq!(
         Override::inline(),
-        "{ a: number, b: 0 | 1 | 2, x: string, y: string, z: string | null, }"
+        "{ a: number } & { b: 0 | 1 | 2 } & { x: string } & { y: string } & { z: string | null }"
     )
 }
 

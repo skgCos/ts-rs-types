@@ -13,7 +13,7 @@ fn interface() {
         a: [i32; 10],
     }
 
-    assert_eq!(Interface::inline(), "{ a: Array<number>, }")
+    assert_eq!(Interface::inline(), "{ a: Array<number> }")
 }
 
 #[test]
